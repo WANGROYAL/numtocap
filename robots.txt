@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://wangroyal.github.io/numtocap/sitemap.xml
