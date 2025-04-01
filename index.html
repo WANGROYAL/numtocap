@@ -3,7 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>造价工具集</title>
+    <title>建设工程造价工具集 - 金额转换/工期计算/钢材重量计算/计价规范</title>
+    <meta name="description" content="免费在线造价工具，提供金额大写转换、工期计算、钢材重量计算、钢制管件图集及GB50500计价规范查询，助力工程预算与造价管理。">
+    <meta name="keywords" content="造价工具,金额大写,工期计算,钢材重量,计价规范,GB50500,工程造价">
+    <meta name="author" content="您的名字或公司">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "建设工程造价工具集",
+  "description": "免费在线造价工具，提供金额大写转换、工期计算、钢材重量计算等功能",
+  "applicationCategory": "BusinessApplication"
+}
+</script>
     <style>
         /* 核心样式 */
         body {
@@ -190,17 +202,25 @@
         <p>任意填写两项可计算第三项</p>
         
         <div class="input-grid">
-            <div class="input-box">
-                <label for="start-date">开工日期</label>
-                <input type="date" id="start-date" onchange="calculateDurationFlexible()">
-                <p class="format-hint">格式：YYYY-MM-DD</p>
-            </div>
-            
-            <div class="input-box">
-                <label for="end-date">竣工日期</label>
-                <input type="date" id="end-date" onchange="calculateDurationFlexible()">
-                <p class="format-hint">格式：YYYY-MM-DD</p>
-            </div>
+           <!-- 开工日期输入框 -->
+<div class="input-box">
+    <label for="start-date">开工日期</label>
+    <input type="date" id="start-date" onchange="calculateDurationFlexible()">
+    <p class="format-hint">
+        格式：年-月-日（例如：2023-08-15）
+        <br><small>*部分浏览器需手动输入</small>
+    </p>
+</div>
+
+<!-- 竣工日期输入框 -->
+<div class="input-box">
+    <label for="end-date">竣工日期</label>
+    <input type="date" id="end-date" onchange="calculateDurationFlexible()">
+    <p class="format-hint">
+        格式：年-月-日（例如：2023-08-15）
+        <br><small>*部分浏览器需手动输入</small>
+    </p>
+</div>
             
             <div class="input-box">
                 <label for="duration-days-input">工期天数</label>
@@ -262,8 +282,8 @@
     <div class="appreciate">
         <h3>感谢使用！如果觉得工具有用，欢迎赞赏支持</h3>
         <div>
-            <img src="images/微信赞赏码.jpg" alt="微信赞赏码">
-            <img src="images/支付宝赞赏码.jpg" alt="支付宝赞赏码">
+            <img src="images/微信赞赏码.jpg" alt="建设工程造价工具微信赞赏二维码">
+     <img src="images/支付宝赞赏码.jpg" alt="建设工程造价工具支付宝赞赏二维码">
         </div>
         <p style="margin-top:15px;color:#666;">您的支持将帮助我们持续更新更多专业造价工具</p>
     </div>
