@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>建设工程造价工具集 - 金额转换/工期计算/钢材重量计算/计价规范</title>
-    <meta name="description" content="免费在线造价工具，提供金额大写转换、工期计算、钢材重量计算、钢制管件图集及GB50500计价规范查询，助力工程预算与造价管理。">
+    <meta name="description" content="免费在线造价工具，提供金额大写转换、工期计算、两点坐标距离计算、钢材重量计算、钢制管件图集及GB50500计价规范查询，助力工程预算与造价管理。">
     <meta name="keywords" content="造价工具,金额大写,工期计算,钢材重量,计价规范,GB50500,工程造价">
     <meta name="author" content="您的名字或公司">
 <script type="application/ld+json">
@@ -12,7 +12,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "建设工程造价工具集",
-  "description": "免费在线造价工具，提供金额大写转换、工期计算、钢材重量计算等功能",
+  "description": "免费在线造价工具，提供金额大写转换、工期计算、、两点坐标距离计算、钢材重量计算等功能",
   "applicationCategory": "BusinessApplication"
 }
 </script>
@@ -178,6 +178,7 @@
     <div class="nav-tabs">
         <div class="nav-tab active" onclick="showModule('amount-converter')">金额大写</div>
         <div class="nav-tab" onclick="showModule('duration-calculator')">工期计算</div>
+        <div class="nav-tab" onclick="showModule('coordinate-distance')">坐标距离</div> 
         <div class="nav-tab" onclick="showModule('steel-calculator')">钢材重量</div>
         <div class="nav-tab" onclick="showModule('pipe-fittings')">钢制管件</div>
         <div class="nav-tab" onclick="showModule('billing-rules')">计价规则</div>
@@ -233,7 +234,40 @@
             请至少填写两项进行计算
         </div>
     </div>
+    <!-- 坐标距离计算模块 -->
+<div id="coordinate-distance" class="module" style="display:none;">
+    <h2>两点坐标距离计算</h2>
+    <p>输入两点坐标(X,Y)，计算平面直线距离</p>
     
+    <div class="input-grid">
+        <!-- 点A坐标 -->
+        <div class="input-box">
+            <label for="pointA-x">点A X坐标</label>
+            <input type="number" id="pointA-x" placeholder="X坐标" step="0.0001">
+        </div>
+        <div class="input-box">
+            <label for="pointA-y">点A Y坐标</label>
+            <input type="number" id="pointA-y" placeholder="Y坐标" step="0.0001">
+        </div>
+        
+        <!-- 点B坐标 -->
+        <div class="input-box">
+            <label for="pointB-x">点B X坐标</label>
+            <input type="number" id="pointB-x" placeholder="X坐标" step="0.0001">
+        </div>
+        <div class="input-box">
+            <label for="pointB-y">点B Y坐标</label>
+            <input type="number" id="pointB-y" placeholder="Y坐标" step="0.0001">
+        </div>
+    </div>
+    
+    <button class="btn" onclick="calculateDistance()">计算距离</button>
+    <button class="btn btn-reset" onclick="resetCoordinateInputs()">清空</button>
+    
+    <div class="result-box" id="distance-result">
+        请输入两点坐标进行计算
+    </div>
+</div>
     <!-- 钢材重量计算模块 -->
     <div id="steel-calculator" class="module" style="display:none;">
         <h2>型材钢材重量计算</h2>
@@ -428,7 +462,46 @@
                   (date.getMonth() + 1) + '月' + 
                   date.getDate() + '日';
         }
-        
+        // 计算两点间距离
+function calculateDistance() {
+    const pointA = {
+        x: parseFloat(document.getElementById('pointA-x').value),
+        y: parseFloat(document.getElementById('pointA-y').value)
+    };
+    
+    const pointB = {
+        x: parseFloat(document.getElementById('pointB-x').value),
+        y: parseFloat(document.getElementById('pointB-y').value)
+    };
+    
+    const resultElement = document.getElementById('distance-result');
+    
+    // 验证输入
+    if (isNaN(pointA.x) || isNaN(pointA.y) || isNaN(pointB.x) || isNaN(pointB.y)) {
+        resultElement.innerText = "请填写所有坐标值";
+        return;
+    }
+    
+    // 计算距离公式：√[(x2-x1)² + (y2-y1)²]
+    const dx = pointB.x - pointA.x;
+    const dy = pointB.y - pointA.y;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    
+    // 显示结果，保留4位小数
+    resultElement.innerHTML = `
+        <strong>计算结果：</strong><br>
+        点A (${pointA.x}, ${pointA.y}) 与 点B (${pointB.x}, ${pointB.y}) 之间的距离为：<br>
+        <span style="font-size:1.2em;color:#4CAF50;">${distance.toFixed(4)}</span> 单位
+    `;
+}
+
+// 清空坐标输入
+function resetCoordinateInputs() {
+    ['pointA-x', 'pointA-y', 'pointB-x', 'pointB-y'].forEach(id => {
+        document.getElementById(id).value = '';
+    });
+    document.getElementById('distance-result').innerText = "请输入两点坐标进行计算";
+}  
         // 钢材参数配置
         const steelParams = {
             round: [
